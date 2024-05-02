@@ -1,17 +1,17 @@
 # Animal Sounds Plugin
 ##### A plugin for [RuneLite](https://runelite.net/)
-Animals occasionally make sounds when you're nearby
+Animals will make sounds when you're nearby
 ___
 
 ## Configuration Options
 
-- Radius (how close you need to be to the animal for the sound to trigger, default 10)
-- Volume (volume the sound will play at, default 75)
-- Cows
-- Chickens
-- Sheep
-- Frogs
-- Ducks
+- **Radius** (how close you need to be to the animal for the sound to trigger, default 10)
+- **Volume** (volume level the sound will play at, default 75)
+- **Cows**
+- **Chickens**
+- **Sheep**
+- **Frogs**
+- **Ducks**
 ___
 
 ## Customize your Sounds
