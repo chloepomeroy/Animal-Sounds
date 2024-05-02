@@ -1,17 +1,12 @@
 package com.animalsounds;
 
-import com.google.inject.Provides;
-import javax.inject.Inject;
-
-import javax.inject.Inject;
-
 public enum Sound {
 
-    COW("C:\\Users\\Lo\\Downloads\\mooing-cow-122255.wav", "hearCows", 3044, true,"Cow"),
-    CHICKEN("C:\\Users\\Lo\\Downloads\\mooing-cow-122255.wav", "hearChickens", 0, false,"Chicken"),
-    DUCK("C:\\Users\\Lo\\Downloads\\mooing-cow-122255.wav", "hearDucks", 413, true,"Duck"),
-    SHEEP("C:\\Users\\Lo\\Downloads\\mooing-cow-122255.wav", "hearSheep", 2053, true,"Sheep"),
-    FROG("C:\\Users\\Lo\\Downloads\\mooing-cow-122255.wav", "hearFrogs", 0, false,"Frog");
+    COW("Cow.wav", "hearCows", 3044, true,"Cow"),
+    CHICKEN("Chicken.wav", "hearChickens", 0, false,"Chicken"),
+    DUCK("Duck.wav", "hearDucks", 413, true,"Duck"),
+    SHEEP("Sheep.wav", "hearSheep", 2053, true,"Sheep"),
+    FROG("Frog.wav", "hearFrogs", 0, false,"Frog");
 
     private final String resourceName;
 
