@@ -66,8 +66,8 @@ package com.animalsounds;
  try (Response res = okHttpClient.newCall(new
  Request.Builder().url(soundUrl).build()).execute()) {
  if (res.body() != null)
- Files.copy(new BufferedInputStream(res.body().byteStream()), outputPath,
- StandardCopyOption.REPLACE_EXISTING);
+     Files.copy(new BufferedInputStream(res.body().byteStream()), outputPath,
+             StandardCopyOption.REPLACE_EXISTING);
  } catch (IOException e) {
  log.error("Animal Sounds Completed could not download sounds", e);
  return;
@@ -84,7 +84,7 @@ package com.animalsounds;
  private static Set<String> getFilesPresent() {
  File[] downloadDirFiles = DOWNLOAD_DIR.listFiles();
  if (downloadDirFiles == null || downloadDirFiles.length == 0)
- return new HashSet<>();
+     return new HashSet<>();
 
  return Arrays.stream(downloadDirFiles)
  .filter(file -> !file.isDirectory())
@@ -107,7 +107,7 @@ package com.animalsounds;
              default:
                  return false;
          }
-     };
+     }
 
      private static List<Sound> getRequiredSounds(AnimalSoundsConfig conf) {
          // Creates a list of soundfiles required based on user config selection

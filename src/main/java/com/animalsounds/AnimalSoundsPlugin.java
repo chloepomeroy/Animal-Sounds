@@ -57,10 +57,10 @@ public class AnimalSoundsPlugin extends Plugin {
 					.anyMatch(npcName -> npcName.contains(" " + animalSound.getAnimalName()));
 
 			if (configSetting && (alternateAnimalFound || animalFound)) {
-				playAnimalSound(animalSound, (config.volume()));
+				playAnimalSound(animalSound);
 			}
 		}
-	};
+	}
 
 	private List<NPC> getNPCsInRange() {
 		LocalPoint currentPosition = client.getLocalPlayer().getLocalLocation();
@@ -92,7 +92,7 @@ public class AnimalSoundsPlugin extends Plugin {
 			default:
 				return false;
 		}
-	};
+	}
 
 	@Override
 	protected void startUp() {
@@ -107,7 +107,7 @@ public class AnimalSoundsPlugin extends Plugin {
 
 	@Override
 	protected void shutDown() throws Exception {
-		// executor.shutdown();
+		executor.shutdown();
 		log.info("Example stopped!");
 	}
 
@@ -128,15 +128,15 @@ public class AnimalSoundsPlugin extends Plugin {
 			if (configSetting && soundId == animalSound.getSoundId()
 					&& currentPosition.distanceTo(soundPosition) / 128 <= config.radius()) {
 				event.consume();
-				playAnimalSound(animalSound, (config.volume()));
+				playAnimalSound(animalSound);
 			}
 		}
 	}
 
-	private void playAnimalSound(Sound sound, int volume) {
+	private void playAnimalSound(Sound sound) {
 		// Get the sound file
 		String soundFile = sound.getResourceName();
-		if (soundFile.length() == 0) {
+		if (soundFile.isEmpty()) {
 			return;
 		}
 
