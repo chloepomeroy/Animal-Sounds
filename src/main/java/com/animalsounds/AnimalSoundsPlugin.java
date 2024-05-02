@@ -1,15 +1,13 @@
 package com.animalsounds;
 
 import com.google.inject.Provides;
-import java.awt.Color;
+
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
@@ -20,11 +18,7 @@ import net.runelite.api.coords.LocalPoint;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.game.npcoverlay.HighlightedNpc;
-import net.runelite.client.game.npcoverlay.NpcOverlayService;
-import net.runelite.client.ui.overlay.OverlayManager;
-import net.runelite.client.util.ColorUtil;
-import net.runelite.client.config.ConfigItem;
+import okhttp3.OkHttpClient;
 
 import net.runelite.api.events.AreaSoundEffectPlayed;
 import javax.sound.sampled.*;
@@ -42,6 +36,9 @@ public class AnimalSoundsPlugin extends Plugin {
 
 	@Inject
 	private ScheduledExecutorService executor;
+
+	@Inject
+	private OkHttpClient okHttpClient;
 
 	public boolean isPlaying = false;
 
@@ -101,8 +98,11 @@ public class AnimalSoundsPlugin extends Plugin {
 	protected void startUp() {
 		log.info("startUp");
 		int delay = ThreadLocalRandom.current().nextInt(0, 11);
+		executor.submit(() -> {
+			SoundFileManager.ensureDownloadDirectoryExists();
+			SoundFileManager.downloadAllMissingSounds(okHttpClient, config);
+		});
 		executor.scheduleAtFixedRate(this::silentAnimalsPlaySound, delay, 9, TimeUnit.SECONDS);
-		testConfig();
 	}
 
 	@Override
@@ -130,17 +130,6 @@ public class AnimalSoundsPlugin extends Plugin {
 				event.consume();
 				playAnimalSound(animalSound, (config.volume()));
 			}
-		}
-	}
-
-	public void testConfig() {
-		try {
-			Class<?>[] innerClasses = config.getInnerClassesOfConfigItem();
-			for (Class<?> innerClass : innerClasses) {
-				System.out.println("Inner Class: " + innerClass.getName());
-			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		}
 	}
 

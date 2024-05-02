@@ -46,8 +46,4 @@ public interface AnimalSoundsConfig extends Config {
 		return true;
 	}
 
-	default Class<?>[] getInnerClassesOfConfigItem() throws ClassNotFoundException {
-		return Class.forName("net.runelite.client.config.Config").getDeclaredClasses();
-	}
-
 }
